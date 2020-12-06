@@ -105,6 +105,36 @@ function azDeviation(json_obj) {
 //На вход - JSON объект, key - текстовое поле сортировки, sort (DESC, ASC) - направление сортировки
 //Выход - JSON объект
 function azSort(json_obj, key, sort="DESC") {
+    switch (key) {
+      case 'Obj': 
+      json_obj.sort(function(obj1, obj2) {
+        if (sort == 'DESC') // Сортировка по убыванию
+        {
+            if (obj1.Obj > obj2.Obj) return -1;
+            if (obj1.Obj < obj2.Obj) return 1;
+            return 0;
+        }
+        else  // Сортировка по возрастанию
+        {
+            if (obj1.Obj < obj2.Obj) return -1;
+            if (obj1.Obj > obj2.Obj) return 1;
+            return 0;
+        }  });     
+      break;
+      case 'month':
+      break;
+      case 'summa':
+      json_obj.sort(function(obj1, obj2) {
+        if (sort == 'DESC') // Сортировка по убыванию
+        {
+            return obj2.summa-obj1.summa;
+        }
+        else  // Сортировка по возрастанию
+        {
+            return obj1.summa-obj2.summa;
+        }  });
+      break;
+    }
     return json_obj;
 }
 
