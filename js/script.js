@@ -10,15 +10,15 @@ function import_test() {
 }
 function abc_test() {
   txt = $('#inp').val();
-  $('#res').html(Import_txt(txt).toString());
+  $('#res').html(azABC(json_obj));
 }
 function abcxyz_test() {
   txt = $('#inp').val();
-  $('#res').html(Import_txt(txt).toString());
+  $('#res').html(azABCXYZ(json_obj));
 }
 function export_test() {
   txt = $('#inp').val();
-  $('#res').html(Import_txt(txt).toString());
+  $('#res').html(azExport(json_obj));
 }
 function med_test() {
   txt = Import_txt($('#inp').val());
@@ -28,11 +28,11 @@ function med_test() {
 }
 function dev_test() {
   txt = $('#inp').val();
-  $('#res').html(Import_txt(txt).toString());
+  $('#res').html(azDeviation(json_obj));
 }
 function sort_test() {
   txt = $('#inp').val();
-  $('#res').html(Import_txt(txt).toString());
+  $('#res').html(azSort(json_obj, key, sort="DESC"));
 }
 function summ_test() {
   txt = Import_txt($('#inp').val());
@@ -42,6 +42,6 @@ function summ_test() {
 }
 function xyz_test() {
   txt = $('#inp').val();
-  $('#res').html(Import_txt(txt).toString());
+  $('#res').html(azXYZ(json_obj));
 }
 
