@@ -163,5 +163,5 @@ function azABC(json_obj) {
 //На вход - JSON объект
 //Выход - текстовая таблица
 function azExport(json_obj) {
-    return text_table;
+    return JSON.stringify(json_obj);
 }
