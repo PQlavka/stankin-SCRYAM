@@ -155,7 +155,7 @@ function azXYZ(json_obj) {
 //Процедура ABCXYZ
 //На вход - JSON объект
 //Выход - JSON объект с доп полем class
-function azABC(json_obj) {
+function azABCXYZ(json_obj) {
     return json_obj;
 }
 
