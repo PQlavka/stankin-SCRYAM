@@ -1,13 +1,2 @@
-# SCRЯM
-На гите действет вебхук в [канал дискорда](https://discord.gg/PNcUNXX).
-![лого](https://sun9-50.userapi.com/c848732/v848732363/12a1ba/t0Ry_K4zxko.jpg)
-
-## Команда
-* РП (Руководитель проекта) - Виктор Остапюк
-* СП (Аналитик) - 
-* ВН (Дизайнер) - 
-* НИ (Архитектор) - 
-* БА (Тестировщик) - 
-* АД (Мастер) - 
-* КО (Тех-писатель) - 
-* ПП (Программист) - 
+#ABCXYZ
+[Landing page](http://htmlpreview.github.io/?https://github.com/PQlavka/stankin-SCRYAM/blob/main/index_demo.html)
