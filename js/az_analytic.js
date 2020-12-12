@@ -145,6 +145,17 @@ function azSort(json_obj, key, sort="DESC") {
             return obj1.variation-obj2.variation;
         }  });
       break;
+      case 'part':
+      json_obj.sort(function(obj1, obj2) {
+        if (sort == 'DESC') // Сортировка по убыванию
+        {
+            return obj2.part-obj1.part;
+        }
+        else  // Сортировка по возрастанию
+        {
+            return obj1.part-obj2.part;
+        }  });
+      break;
     }
     return json_obj;
 }
@@ -153,7 +164,34 @@ function azSort(json_obj, key, sort="DESC") {
 //На вход - JSON объект
 //Выход - JSON объект с доп полем class
 function azABC(json_obj) {
-    return json_obj;
+  var json_part = [];
+  var summ = azSumm(json_obj);
+  var part_i = 0;
+  var l1 = Object.keys(json_obj).length;  
+  for (var i = 0; i < l1; i++) {
+        part_i = (json_obj[i].summa / summ)*100;
+        json_part.push({Obj:json_obj[i].Obj, month:json_obj[i].month, summa:json_obj[i].summa, part:part_i});
+    }
+  var sorded_part = azSort(json_part, 'part');
+  var json_class = [];
+  var CumSum = 0;
+  for (var j = 0; j < l1; j++) {
+      CumSum = CumSum + json_part[j].part_i;
+    if (CumSum > 95) 
+        {
+           json_class.push({Obj:sorded_part[j].Obj, month:sorded_part[j].month, summa:sorded_part[j].summa, class:'C'});  
+        }
+        else  if (CumSum > 80)
+        {
+             json_class.push({Obj:sorded_part[j].Obj, month:sorded_part[j].month, summa:sorded_part[j].summa, class:'B'}); 
+        }  
+       else  
+        {
+            json_class.push({Obj:sorded_part[j].Obj, month:sorded_part[j].month, summa:sorded_part[j].summa, class:'A'});  
+        }  
+    
+    }
+    return json_class;
 }
 
 //Процедура XYZ
@@ -175,18 +213,18 @@ function azXYZ(json_obj) {
   
   var json_class = [];  
   for (var j = 0; j < l1; j++) {
-    variat = sortedJson[i].variation; 
+    variat = sortedJson[j].variation; 
        if (variat < 10) 
         {
-           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, class:'X'});  
+           json_class.push({Obj:sortedJson[j].Obj, month:sortedJson[j].month, summa:sortedJson[j].summa, class:'X'});  
         }
         else  if (variat < 25)
         {
-            json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, class:'Y'}); 
+            json_class.push({Obj:sortedJson[j].Obj, month:sortedJson[j].month, summa:sortedJson[j].summa, class:'Y'}); 
         }  
        else  
         {
-           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, class:'Z'});  
+           json_class.push({Obj:sortedJson[j].Obj, month:sortedJson[j].month, summa:sortedJson[j].summa, class:'Z'});  
         }  
     }
   
