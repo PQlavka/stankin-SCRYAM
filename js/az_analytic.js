@@ -91,7 +91,7 @@ function azMedian(json_obj) {
 //На вход - JSON объект
 //Выход - Число
 function azDeviation(json_obj) {
-    var xMedian = azMedian(json_obj)
+    var xMedian = azMedian(json_obj);
     var l1 = Object.keys(json_obj).length;
     var deviation = 0;
     for (var i = 0; i < l1; i++) {
@@ -134,6 +134,17 @@ function azSort(json_obj, key, sort="DESC") {
             return obj1.summa-obj2.summa;
         }  });
       break;
+      case 'variation':
+      json_obj.sort(function(obj1, obj2) {
+        if (sort == 'DESC') // Сортировка по убыванию
+        {
+            return obj2.variation-obj1.variation;
+        }
+        else  // Сортировка по возрастанию
+        {
+            return obj1.variation-obj2.variation;
+        }  });
+      break;
     }
     return json_obj;
 }
@@ -149,7 +160,37 @@ function azABC(json_obj) {
 //На вход - JSON объект
 //Выход - JSON объект с доп полем class
 function azXYZ(json_obj) {
-    return json_obj;
+  var json_variation = []; 
+  var json_iN = [];
+  var variat = 0;
+  var xMedian = azMedian(json_obj);
+  var l1 = Object.keys(json_obj).length;  
+  for (var i = 0; i < l1; i++) {
+        json_iN.push({Obj:json_obj[i].Obj, summa:json_obj[i].summa});
+        var devi = azDeviation(json_iN);
+        variat = (devi/xMedian)*100;
+        json_variation.push({Obj:json_obj[i].Obj, month:json_obj[i].month, summa:json_obj[i].summa, variation:variat});
+    }
+  var sortedJson = azSort(json_variation, 'variation', "ASC");
+  
+  var json_class = [];  
+  for (var j = 0; j < l1; j++) {
+    variat = sortedJson[i].variation; 
+       if (variat < 10) 
+        {
+           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, variation:'X'});  
+        }
+        else  if (variat < 25)
+        {
+            json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, variation:'Y'}); 
+        }  
+       else  
+        {
+           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, variation:'Z'});  
+        }  
+    }
+  
+    return json_class;
 }
 
 //Процедура ABCXYZ
