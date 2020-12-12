@@ -176,7 +176,7 @@ function azABC(json_obj) {
   var json_class = [];
   var CumSum = 0;
   for (var j = 0; j < l1; j++) {
-      CumSum = CumSum + json_part[j].part_i;
+      CumSum = CumSum + json_part[j].part;
     if (CumSum > 95) 
         {
            json_class.push({Obj:sorded_part[j].Obj, month:sorded_part[j].month, summa:sorded_part[j].summa, class:'C'});  
@@ -235,7 +235,81 @@ function azXYZ(json_obj) {
 //На вход - JSON объект
 //Выход - JSON объект с доп полем class
 function azABCXYZ(json_obj) {
-    return json_obj;
+  var json_part = [];
+  var summ = azSumm(json_obj);
+  var part_i = 0;
+  var l1 = Object.keys(json_obj).length;  
+  for (var i = 0; i < l1; i++) {
+        part_i = (json_obj[i].summa / summ)*100;
+        json_part.push({Obj:json_obj[i].Obj, month:json_obj[i].month, summa:json_obj[i].summa, part:part_i});
+    }
+  var sorded_part = azSort(json_part, 'part');
+  
+ var json_variation_part = []; 
+  var json_iN = [];
+  var variat = 0;
+  var xMedian = azMedian(json_obj);
+  var l1 = Object.keys(json_obj).length;  
+  for (var i = 0; i < l1; i++) {
+        json_iN.push({Obj:sorded_part[i].Obj, summa:sorded_part[i].summa});
+        var devi = azDeviation(json_iN);
+        variat = (devi/xMedian)*100;
+        json_variation_part.push({Obj:sorded_part[i].Obj, month:sorded_part[i].month, summa:sorded_part[i].summa, part:sorded_part[i].part, variation:variat});
+    } 
+  
+  var json_class = [];
+  var CumSum = 0;
+  for (var j = 0; j < l1; j++) {
+      CumSum = CumSum + json_part[j].part;
+    if (CumSum > 95) 
+        {
+           if (variat < 10) 
+                {
+                   json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'CX'});  
+                }
+                else  if (variat < 25)
+                {
+                    json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'CY'}); 
+                }  
+               else  
+                {
+                   json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'CZ'});  
+                }    
+        }
+        else  if (CumSum > 80)
+        {
+             if (variat < 10) 
+                {
+                   json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'BX'});  
+                }
+                else  if (variat < 25)
+                {
+                    json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'BY'}); 
+                }  
+               else  
+                {
+                   json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'BZ'});  
+                } 
+        }  
+       else  
+        {
+            if (variat < 10) 
+                {
+                   json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'AX'});  
+                }
+                else  if (variat < 25)
+                {
+                    json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'AY'}); 
+                }  
+               else  
+                {
+                   json_class.push({Obj:json_variation_part[j].Obj, month:json_variation_part[j].month, summa:json_variation_part[j].summa, class:'AZ'});  
+                } 
+        }  
+    
+    }
+    return json_class;
+}
 }
 
 //Процедура Экспорт
