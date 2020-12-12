@@ -178,15 +178,15 @@ function azXYZ(json_obj) {
     variat = sortedJson[i].variation; 
        if (variat < 10) 
         {
-           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, variation:'X'});  
+           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, class:'X'});  
         }
         else  if (variat < 25)
         {
-            json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, variation:'Y'}); 
+            json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, class:'Y'}); 
         }  
        else  
         {
-           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, variation:'Z'});  
+           json_class.push({Obj:sortedJson[i].Obj, month:sortedJson[i].month, summa:sortedJson[i].summa, class:'Z'});  
         }  
     }
   
